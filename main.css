@@ -83,7 +83,7 @@ header.hero h2 {
     text-align: center;
 }
 
-.container div.text-box {
+.container article.text-box {
     display: inline-block;
     width: 100%;
     max-width: 340px;
@@ -92,32 +92,7 @@ header.hero h2 {
 }
 
 @media screen and (min-width: 768px) {
-    .container .div.text-box {
+    .container .article.text-box {
         margin: 10px;
-    }
-}
-
-/* Container Styles */
-.container {
-    padding: 20px; /* Adjusted padding for better spacing */
-}
-
-.page-area {
-    max-width: 100%; /* Change to 100% to fit the container */
-    display: flex;
-    flex-wrap: wrap; /* Allow boxes to wrap to the next line on smaller screens */
-    justify-content: space-between; /* Spread boxes horizontally */
-}
-
-/* Text Box Styles */
-.text-box {
-    width: calc(50% - 40px); /* Adjusted width to fit two boxes side by side with margin */
-    margin: 20px;
-}
-
-/* Media Query for Larger Screens */
-@media screen and (min-width: 768px) {
-    .text-box {
-        width: calc(33.33% - 40px); /* Adjusted width to fit three boxes side by side with margin */
     }
 }
