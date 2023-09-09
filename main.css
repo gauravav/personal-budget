@@ -97,21 +97,26 @@ header.hero h2 {
     }
 }
 
-/* Style for the footer */
 footer.bottom {
-    background-color: #333; /* Background color */
-    color: #fff; /* Text color */
-    padding: 20px; /* Padding to create some space around the content */
-    text-align: center; /* Center-align the text */
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px; 
+    text-align: center; 
 }
 
-/* Style for the copyright text */
 footer.bottom div.center {
-    font-size: 14px; /* Adjust font size as needed */
+    font-size: 14px; 
 }
 
-/* Style for the copyright symbol */
 footer.bottom div.center::before {
-    content: "\00a9"; /* Unicode code for the copyright symbol */
-    margin-right: 5px; /* Add some space between the symbol and text */
+    content: "\00a9"; 
+    margin-right: 5px; 
+}
+
+a:focus, button:focus {
+    outline: 2px solid #4d5791; 
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid #4d5791; 
 }
