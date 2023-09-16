@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Manage your personal budget effectively with this free budgeting app. Stay on track, receive alerts, and achieve financial freedom.">
+    <meta name="description"
+        content="Manage your personal budget effectively with this free budgeting app. Stay on track, receive alerts, and achieve financial freedom.">
     <!-- This is an SEO Change -->
     <title>Personal Budget Management App - Track Expenses and Budget Effectively</title>
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/main.css">
 </head>
+
+<style>
+    svg {
+        width: 400px;
+        height: 400px;
+    }
+
+    path.slice {
+        stroke-width: 2px;
+    }
+
+    polyline {
+        opacity: .3;
+        stroke: black;
+        stroke-width: 2px;
+        fill: none;
+    }
+</style>
+
 <body>
 
     <!-- This is a Semantic HTML Change -->
     <nav class="menu" role="navigation">
         <ul>
             <!-- This is an A11y Change -->
-            <li><a href="#content" tabindex="1">Skip to Content</a></li>
+            <!-- <li><a href="#content" tabindex="1">Skip to Content</a></li> -->
+            <li><a href="#d3DonutChart" tabindex="1">Skip to Content</a></li>
             <li><a href="/pb" tabindex="2">Homepage</a></li>
             <li><a href="/pb/about.html" tabindex="3">About</a></li>
             <li><a href="login.html" tabindex="4">Login</a></li>
             <li><a href="https://google.com" tabindex="5">Visit Google</a></li>
-    <!-- This is an SEO Change -->
+            <!-- This is an SEO Change -->
             <li><a href="https://google.com">Visit Google</a></li>
         </ul>
     </nav>
@@ -35,11 +57,11 @@
     <!-- This is a Semantic HTML Change -->
     <main class="container center" id="content" role="main">
 
-    <!-- This is an A11y Change -->
+        <!-- This is an A11y Change -->
         <div class="page-area" role="navigation">
-    <!-- This is an SEO Change -->
+            <!-- This is an SEO Change -->
             <article class="text-box">
-    <!-- This is an A11y Change -->
+                <!-- This is an A11y Change -->
                 <h1 tabindex="8">Stay on track</h1>
                 <p tabindex="9">
                     Do you know where you are spending your money? If you really stop to track it down,
@@ -47,30 +69,30 @@
                     app will help you with that!
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="10">Alerts</h1>
                 <p tabindex="11">
                     What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="12">Results</h1>
                 <p tabindex="13">
                     People who stick to a financial plan, budgeting every expense, get out of debt faster!
-                    Also, they to live happier lives... since they expend without guilt or fear... 
+                    Also, they to live happier lives... since they expend without guilt or fear...
                     because they know it is all good and accounted for.
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="14">Free</h1>
                 <p tabindex="15">
                     This app is free!!! And you are the only one holding your data!
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="16">Stay on track</h1>
                 <p tabindex="17">
@@ -79,23 +101,23 @@
                     app will help you with that!
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="18">Alerts</h1>
                 <p tabindex="19">
                     What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1 tabindex="20">Results</h1>
                 <p tabindex="21">
                     People who stick to a financial plan, budgeting every expense, get out of debt faster!
-                    Also, they to live happier lives... since they expend without guilt or fear... 
+                    Also, they to live happier lives... since they expend without guilt or fear...
                     because they know it is all good and accounted for.
                 </p>
             </article>
-    
+
             <article class="text-box">
                 <h1>Chart</h1>
                 <p>
@@ -103,86 +125,255 @@
                 </p>
             </article>
 
+            <article class="text-box">
+                <h1>D3JS Donut Chart</h1>
+                <p>
+                <div id="d3DonutChart"></div>
+                </p>
+            </article>
+
+
+
+
+
         </div>
 
     </main>
 
-        <!-- This is an A11y Change -->
-            <footer class="bottom" role="contentinfo">
+    <!-- This is an A11y Change -->
+    <footer class="bottom" role="contentinfo">
         <div class="center">
-        <!-- This is an A11y Change -->
+            <!-- This is an A11y Change -->
             All rights reserved © Gaurav Avula
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
     <script>
-    //Console log to check if the JS file is linked properly
-    console.log("JS file linked properly");
-    var dataSource = {
-                datasets: [
-                    {
-                        data: [],
-                        backgroundColor: [
-                            '#ffcd56',
-                            '#ff6384',
-                            '#36a2eb',
-                            '#fd6b19',
-                            '#00ff00',
-                            '#0000ff',
-                            '#ff0000',
-                            '#00ffff',
-                            '#ff00ff',
-                            '#ffff00',
-                            '#000000',
-                            '#ffffff',
-                            '#808080',
-                            '#800000',
-                            '#808000'
-                        ]
-                    }
-                ],
-                labels: []
-            };
-
-            console.log("Data source created");
-            console.log(dataSource);
-
-            function createChart() {
-    var ctx = document.getElementById('myChart').getContext('2d');
-
-    // Check if a chart already exists on this canvas
-    if (window.myPieChart) {
-        window.myPieChart.destroy(); // Destroy the previous chart
-    }
-
-    window.myPieChart = new Chart(ctx, {
-        type: 'pie',
-        data: dataSource
-    });
-    console.log("Chart created");
-    console.log(window.myPieChart);
-}
-
-            function getBudget() {
-            axios.get('http://localhost:3100/budget')
-            .then(function (res) {
-                for (var i = 0; i < res.data.myBudget.length; i++) {
-                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                    dataSource.labels[i] = res.data.myBudget[i].title;
-                    createChart();
+        //Console log to check if the JS file is linked properly
+        console.log("JS file linked properly");
+        var dataSource = {
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: [
+                        '#ffcd56',
+                        '#ff6384',
+                        '#36a2eb',
+                        '#fd6b19',
+                        '#00ff00',
+                        '#0000ff',
+                        '#ff0000'
+                    ]
                 }
+            ],
+            labels: []
+        };
+
+        console.log("Data source created");
+        console.log(dataSource);
+
+        function createChart() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Check if a chart already exists on this canvas
+            if (window.myPieChart) {
+                window.myPieChart.destroy(); // Destroy the previous chart
+            }
+
+            window.myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: dataSource
             });
+            console.log("Chart created");
+            console.log(window.myPieChart);
+        }
+
+        function getBudget() {
+            axios.get('http://localhost:3000/budget')
+                .then(function (res) {
+                    for (var i = 0; i < res.data.myBudget.length; i++) {
+                        dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+                        dataSource.labels[i] = res.data.myBudget[i].title;
+                    }
+                })
+                .then(function () {
+                    createChart();
+                });
         }
 
         getBudget();
 
     </script>
 
-    
+
+
+    <script>
+
+        console.log("D3JS file linked properly");
+        var datum = [];
+
+
+        function getBudgetAgain() {
+            axios.get('http://localhost:3000/budget')
+                .then(function (res) {
+                    datum = res.data.myBudget;
+                    console.log(datum);
+                })
+                .then(function () {
+                    createD3Chart();
+                });
+        }
+        window.addEventListener("DOMContentLoaded", function () {
+            getBudgetAgain();
+        });
+
+        function createD3Chart() {
+            console.log("D3JS chart created");
+
+            var svg = d3.select("#d3DonutChart")
+                .append("svg")
+                .append("g");
+
+            svg.append("g")
+                .attr("class", "slices");
+            svg.append("g")
+                .attr("class", "labels");
+            svg.append("g")
+                .attr("class", "lines");
+
+
+
+            var chartContainer = document.getElementById("d3DonutChart");
+            var containerWidth = chartContainer.clientWidth;
+            var containerHeight = chartContainer.clientHeight;
+
+            var width = containerWidth,
+                height = containerHeight,
+                radius = (Math.min(width, height) / 2) - 65;
+
+            console.log("Data before pie function" + datum);
+
+            var pie = d3.layout.pie()
+                .sort(null)
+                .value(function (d) {
+                    return d.budget;
+                });
+
+            var arc = d3.svg.arc()
+                .outerRadius(radius * 0.8)
+                .innerRadius(radius * 0.4);
+
+            var outerArc = d3.svg.arc()
+                .innerRadius(radius * 0.9)
+                .outerRadius(radius * 0.9);
+
+            svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            var key = function (d) { return d.data.title; };
+
+
+            var color = d3.scale.category20();
+
+            change(datum);
+
+            function change(data) {
+                /* ------- PIE SLICES -------*/
+                console.log("Data after pie function" + data);
+                var slice = svg.select(".slices").selectAll("path.slice")
+                    .data(pie(data), key);
+
+                slice.enter()
+                    .insert("path")
+                    .style("fill", function (d) { return color(d.data.title); })
+                    .attr("class", "slice");
+
+                slice
+                    .transition().duration(1000)
+                    .attrTween("d", function (d) {
+                        this._current = this._current || d;
+                        var interpolate = d3.interpolate(this._current, d);
+                        this._current = interpolate(0);
+                        return function (t) {
+                            return arc(interpolate(t));
+                        };
+                    });
+
+                slice.exit()
+                    .remove();
+
+                /* ------- TEXT LABELS -------*/
+
+                var text = svg.select(".labels").selectAll("text")
+                    .data(pie(data), key);
+
+                text.enter()
+                    .append("text")
+                    .attr("dy", ".35em")
+                    .text(function (d) {
+                        return d.data.title;
+                    });
+
+                function midAngle(d) {
+                    return d.startAngle + (d.endAngle - d.startAngle) / 2;
+                }
+
+                text.transition().duration(1000)
+                    .attrTween("transform", function (d) {
+                        this._current = this._current || d;
+                        var interpolate = d3.interpolate(this._current, d);
+                        this._current = interpolate(0);
+                        return function (t) {
+                            var d2 = interpolate(t);
+                            var pos = outerArc.centroid(d2);
+                            pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+                            return "translate(" + pos + ")";
+                        };
+                    })
+                    .styleTween("text-anchor", function (d) {
+                        this._current = this._current || d;
+                        var interpolate = d3.interpolate(this._current, d);
+                        this._current = interpolate(0);
+                        return function (t) {
+                            var d2 = interpolate(t);
+                            return midAngle(d2) < Math.PI ? "start" : "end";
+                        };
+                    });
+
+                text.exit()
+                    .remove();
+
+                /* ------- SLICE TO TEXT POLYLINES -------*/
+
+                var polyline = svg.select(".lines").selectAll("polyline")
+                    .data(pie(data), key);
+
+                polyline.enter()
+                    .append("polyline");
+
+                polyline.transition().duration(1000)
+                    .attrTween("points", function (d) {
+                        this._current = this._current || d;
+                        var interpolate = d3.interpolate(this._current, d);
+                        this._current = interpolate(0);
+                        return function (t) {
+                            var d2 = interpolate(t);
+                            var pos = outerArc.centroid(d2);
+                            pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+                            return [arc.centroid(d2), outerArc.centroid(d2), pos];
+                        };
+                    });
+
+                polyline.exit()
+                    .remove();
+            }
+        }
+
+
+    </script>
 </body>
+
 </html>
