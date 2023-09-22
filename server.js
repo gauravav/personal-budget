@@ -19,5 +19,3 @@ app.get('/budget', (req, res) => {
 });
 
 // app.use('/',express.static('public'));
-
-
