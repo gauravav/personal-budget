@@ -8,7 +8,6 @@ const budgetData = JSON.parse(importJSON);
 
 app.use(cors());
 
-
 app.listen(port, () =>
 {
 console.log(`API served at http://localhost:${port}`);
@@ -18,8 +17,6 @@ console.log(`API served at http://localhost:${port}`);
 app.get('/budget', (req, res) => {
     res.json(budgetData);
 });
-
-
 
 // app.use('/',express.static('public'));
 
