@@ -162,20 +162,12 @@
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
     <script>
-        //Console log to check if the JS file is linked properly
         console.log("JS file linked properly");
         var dataSource = {
             datasets: [
                 {
                     data: [],
                     backgroundColor: [
-                        '#ffcd56',
-                        '#ff6384',
-                        '#36a2eb',
-                        '#fd6b19',
-                        '#00ff00',
-                        '#0000ff',
-                        '#ff0000'
                     ]
                 }
             ],
@@ -188,9 +180,8 @@
         function createChart() {
             var ctx = document.getElementById('myChart').getContext('2d');
 
-            // Check if a chart already exists on this canvas
             if (window.myPieChart) {
-                window.myPieChart.destroy(); // Destroy the previous chart
+                window.myPieChart.destroy(); 
             }
 
             window.myPieChart = new Chart(ctx, {
@@ -202,17 +193,16 @@
         }
 
         function getBudget() {
-            axios.get('http://localhost:3000/budget')
-                .then(function (res) {
-                    for (var i = 0; i < res.data.myBudget.length; i++) {
-                        dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                        dataSource.labels[i] = res.data.myBudget[i].title;
-                    }
-                })
-                .then(function () {
-                    createChart();
-                });
-        }
+    axios.get('http://localhost:3000/budget') 
+        .then(function (res) {
+            dataSource.labels = res.data.map(item => item.title);
+            dataSource.datasets[0].data = res.data.map(item => item.budget);
+            dataSource.datasets[0].backgroundColor = res.data.map(item => item.color);
+        })
+        .then(function () {
+            createChart();
+        });
+}
 
         getBudget();
 
@@ -227,15 +217,17 @@
 
 
         function getBudgetAgain() {
-            axios.get('http://localhost:3000/budget')
-                .then(function (res) {
-                    datum = res.data.myBudget;
-                    console.log(datum);
-                })
-                .then(function () {
-                    createD3Chart();
-                });
-        }
+    axios.get('http://localhost:3000/budget') 
+        .then(function (res) {
+            datum = res.data;
+            console.log(datum);
+        })
+        .then(function () {
+            createD3Chart();
+        });
+}
+
+
         window.addEventListener("DOMContentLoaded", function () {
             getBudgetAgain();
         });
@@ -285,20 +277,22 @@
             var key = function (d) { return d.data.title; };
 
 
-            var color = d3.scale.category20();
+            // var color = d3.scale.category20();
+            var color = d3.scale.ordinal()
+        .domain(datum.map(function (d) { return d.title; }))
+        .range(datum.map(function (d) { return d.color; }));
 
             change(datum);
 
             function change(data) {
-                /* ------- PIE SLICES -------*/
                 console.log("Data after pie function" + data);
                 var slice = svg.select(".slices").selectAll("path.slice")
                     .data(pie(data), key);
 
-                slice.enter()
-                    .insert("path")
-                    .style("fill", function (d) { return color(d.data.title); })
-                    .attr("class", "slice");
+                    slice.enter()
+        .insert("path")
+        .style("fill", function (d) { return color(d.data.title); })
+        .attr("class", "slice");
 
                 slice
                     .transition().duration(1000)
@@ -315,7 +309,6 @@
                     .remove();
 
                 /* ------- TEXT LABELS -------*/
-
                 var text = svg.select(".labels").selectAll("text")
                     .data(pie(data), key);
 
@@ -356,7 +349,6 @@
                     .remove();
 
                 /* ------- SLICE TO TEXT POLYLINES -------*/
-
                 var polyline = svg.select(".lines").selectAll("polyline")
                     .data(pie(data), key);
 
