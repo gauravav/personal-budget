@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Budget Entry</title>
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <h1>Add Budget Entry</h1>
+    <form id="budgetForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="budget">Budget:</label>
+        <input type="number" id="budget" name="budget" required><br>
+
+        <label for="color">Color:</label>
+        <input type="color" id="color" name="color" required><br>
+
+        <button type="submit">Add Entry</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        const budgetForm = document.getElementById('budgetForm');
+        const messageDiv = document.getElementById('message');
+    
+        budgetForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const budget = document.getElementById('budget').value;
+            const color = document.getElementById('color').value;
+    
+            const response = await fetch('/budget', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, budget, color }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                messageDiv.innerHTML = `Budget entry added: ${data.title}`;
+                // You can redirect or display a success message as needed
+            } else {
+                const errorData = await response.json();
+                if (response.status === 400) {
+                    messageDiv.innerHTML = `Error: ${errorData.error}`;
+                } else if (response.status === 500) {
+                    messageDiv.innerHTML = `Internal Server Error: ${errorData.error}`;
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
